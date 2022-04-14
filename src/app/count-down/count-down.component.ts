@@ -11,7 +11,7 @@ export class CountDownComponent implements OnInit, OnDestroy {
     private subscription: Subscription;
   
     public dateNow = new Date();
-    public dDay = new Date('Apr 18 2022 08:25:00');
+    public dDaySeattle = new Date('Apr 17 2022 03:00:00'); //IST
     milliSecondsInASecond = 1000;
     hoursInADay = 24;
     minutesInAnHour = 60;
@@ -23,17 +23,15 @@ export class CountDownComponent implements OnInit, OnDestroy {
     public hoursToDday: any;
     public daysToDday: any;
 
+    public leftSeattle: boolean=false;
 
     private getTimeDifference () {
-      var currentTime = new Date();
-      var currentOffset = currentTime.getTimezoneOffset();
-      var ISTOffset = 330;   // IST offset UTC +5:30 
-      var ISTTime = new Date(currentTime.getTime() + (ISTOffset + currentOffset)*60000);
-    // ISTTime now represents the time in IST coordinates
-
-   //   var hoursIST = ISTTime.getHours()
-     // var minutesIST = ISTTime.getMinutes()
-        this.timeDifference = this.dDay.getTime() - ISTTime.getTime(); //new  Date().getTime();
+        var currentTime = new Date();
+        var currentOffset = currentTime.getTimezoneOffset();
+        var ISTOffset = 330;   // IST offset UTC +5:30 
+        var ISTTime = new Date(currentTime.getTime() + (ISTOffset + currentOffset)*60000);
+        // ISTTime now represents the time in IST coordinates
+        this.timeDifference = this.dDaySeattle.getTime() - ISTTime.getTime(); //new  Date().getTime();
         this.allocateTimeUnits(this.timeDifference);
     }
 
@@ -42,7 +40,15 @@ export class CountDownComponent implements OnInit, OnDestroy {
         this.minutesToDday = Math.floor((timeDifference) / (this.milliSecondsInASecond * this.minutesInAnHour) % this.SecondsInAMinute);
         this.hoursToDday = Math.floor((timeDifference) / (this.milliSecondsInASecond * this.minutesInAnHour * this.SecondsInAMinute) % this.hoursInADay);
         this.daysToDday = Math.floor((timeDifference) / (this.milliSecondsInASecond * this.minutesInAnHour * this.SecondsInAMinute * this.hoursInADay));
-  }
+        if (this.daysToDday<0 || this.hoursToDday<0 || this.minutesToDday<0 || this.secondsToDday<0){
+          this.leftSeattle=true;
+          this.secondsToDday=0;
+          this.minutesToDday=0;
+          this.hoursToDday=0;
+          this.daysToDday=0;
+        }
+        
+ }
 
     ngOnInit() {
        this.subscription = interval(1000)

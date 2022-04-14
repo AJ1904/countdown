@@ -7,4 +7,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'countdown';
+  imageSrc = 'assets/worldmap.png'  
+  imageAlt = 'map hai yaha'
 }

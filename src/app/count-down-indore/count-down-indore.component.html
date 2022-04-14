@@ -1,11 +1,12 @@
-<div class="timer" style="color:green" >
-    <h4 *ngIf="!leftSeattle; else showThis"> Time left to start from Seattle </h4>
+<div class="timer" style="color:blue">
+    <h4 *ngIf="!reachedIndore; else showThis"> Time to reach Indore </h4>
     <span id="days"> {{daysToDday}} </span>Day(s)
     <span id="hours"> {{hoursToDday}} </span>Hrs 
     <span id="minutes"> {{minutesToDday}} </span>Min
     <span id="seconds"> {{secondsToDday}} </span>S
     <ng-template #showThis>      
-        <h4>Wooohoo!!! Left Seattle!!!</h4>
+        <h4>Wooohoo!!! Reached Indore!!!</h4>
+        <h3>P.S. I love you 3000</h3>
     </ng-template>
 </div>
 
