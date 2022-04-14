@@ -25,7 +25,15 @@ export class CountDownComponent implements OnInit, OnDestroy {
 
 
     private getTimeDifference () {
-        this.timeDifference = this.dDay.getTime() - new  Date().getTime();
+      var currentTime = new Date();
+      var currentOffset = currentTime.getTimezoneOffset();
+      var ISTOffset = 330;   // IST offset UTC +5:30 
+      var ISTTime = new Date(currentTime.getTime() + (ISTOffset + currentOffset)*60000);
+    // ISTTime now represents the time in IST coordinates
+
+   //   var hoursIST = ISTTime.getHours()
+     // var minutesIST = ISTTime.getMinutes()
+        this.timeDifference = this.dDay.getTime() - ISTTime.getTime(); //new  Date().getTime();
         this.allocateTimeUnits(this.timeDifference);
     }
 
